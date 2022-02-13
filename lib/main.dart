@@ -1,6 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:local_farm/core/app_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyDCevz7D4YZ9ganUGjplhZI1ZboaLtlDmQ",
+        authDomain: "local-farm-ff7b7.firebaseapp.com",
+        projectId: "local-farm-ff7b7",
+        storageBucket: "local-farm-ff7b7.appspot.com",
+        messagingSenderId: "591234143954",
+        appId: "1:591234143954:web:e1d54540bbc587bc1fbf0b",
+      ),
+    );
+  } catch (ex) {
+    print(ex.toString());
+  }
+
   runApp(const MyApp());
 }
 
@@ -10,55 +28,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: "NotoSansTC",
       ),
-      home: const Home(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
-      drawer: Drawer(
-        backgroundColor: Colors.red,
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Center(child: Icon(Icons.ac_unit)),
+      home: const AppView(),
     );
   }
 }
