@@ -7,13 +7,14 @@ void main() async {
   try {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyDCevz7D4YZ9ganUGjplhZI1ZboaLtlDmQ",
-        authDomain: "local-farm-ff7b7.firebaseapp.com",
-        projectId: "local-farm-ff7b7",
-        storageBucket: "local-farm-ff7b7.appspot.com",
-        messagingSenderId: "591234143954",
-        appId: "1:591234143954:web:e1d54540bbc587bc1fbf0b",
-      ),
+          apiKey: "AIzaSyDCevz7D4YZ9ganUGjplhZI1ZboaLtlDmQ",
+          authDomain: "local-farm-ff7b7.firebaseapp.com",
+          databaseURL:
+              "https://local-farm-ff7b7-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "local-farm-ff7b7",
+          storageBucket: "local-farm-ff7b7.appspot.com",
+          messagingSenderId: "591234143954",
+          appId: "1:591234143954:web:e1d54540bbc587bc1fbf0b"),
     );
   } catch (ex) {
     print(ex.toString());

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:local_farm/const/const.dart';
+import 'package:local_farm/core/firebase_repository.dart';
 import 'package:local_farm/core/tab_view.dart';
-import 'package:local_farm/modules/Introduction/Introduction_view.dart';
+import 'package:local_farm/modules/Introduction/Introduction_tab_view.dart';
 import 'package:local_farm/modules/contact_us/contact_us_page.dart';
 import 'package:local_farm/modules/customer/customer_page.dart';
 import 'package:local_farm/modules/download/download_page.dart';
@@ -26,7 +27,7 @@ class _AppViewState extends State<AppView> with SingleTickerProviderStateMixin {
 
   final List<TabView> views = const [
     HomePage(),
-    IntroductionView(),
+    IntroductionTabView(),
     LineContentView(),
     ServiceItemsView(),
     CustomerPage(),
@@ -48,15 +49,35 @@ class _AppViewState extends State<AppView> with SingleTickerProviderStateMixin {
       drawer: drawer(),
       drawerEnableOpenDragGesture: false,
       key: scaffoldKey,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 955) {
-            return desktopView();
-          } else {
-            return mobileView();
-          }
-        },
+      floatingActionButton: CircleAvatar(
+        backgroundColor: kDarkGreenColor,
+        radius: 25,
+        child: IconButton(
+          padding: EdgeInsets.zero,
+          icon: const Icon(Icons.arrow_upward, color: Colors.white, size: 30),
+          onPressed: () {
+            PrimaryScrollController.of(context)!.animateTo(0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.ease);
+          },
+        ),
       ),
+      body: FutureBuilder<bool>(
+          future: FirebaseRepository().isSyncDataFromFirebase(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data!) {
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 955) {
+                    return desktopView();
+                  } else {
+                    return mobileView();
+                  }
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
     );
   }
 
@@ -94,6 +115,7 @@ class _AppViewState extends State<AppView> with SingleTickerProviderStateMixin {
           ),
           Expanded(
             child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
               children: views.map((e) => e.child).toList(),
             ),
