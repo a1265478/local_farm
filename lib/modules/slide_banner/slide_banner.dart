@@ -13,17 +13,11 @@ class SlideBanner extends StatefulWidget {
 }
 
 class _SlideBannerState extends State<SlideBanner> {
-  List<ImageFile> banners = [];
   CarouselController carouselController = CarouselController();
   PageController pageController = PageController();
 
   @override
   void initState() {
-    try {
-      final data = FirebaseRepository().data["banner"] as List;
-      List<ImageFile> list = data.map((e) => ImageFile.fromJson(e)).toList();
-      banners = list;
-    } catch (_) {}
     super.initState();
   }
 
@@ -36,7 +30,8 @@ class _SlideBannerState extends State<SlideBanner> {
           height: MediaQuery.of(context).size.width / 970 * 250,
           child: CarouselSlider(
             carouselController: carouselController,
-            items: banners
+            items: FirebaseRepository()
+                .banners
                 .map(
                   (e) => Image.memory(
                     base64Decode(e.base64),

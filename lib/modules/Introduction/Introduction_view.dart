@@ -8,41 +8,28 @@ class IntroductionView extends StatelessWidget {
   const IntroductionView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final List<Introduction> introductionList = getIntroductionList();
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30),
-      color: kPrimaryColor,
+      // color: kLightGreenColor.withOpacity(0.3),
+      color: kPrimaryColor.withOpacity(0.1),
       width: MediaQuery.of(context).size.width,
       child: SizedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        right: BorderSide(color: Colors.white, width: 3))),
-                child: _section(introductionList[0]),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        right: BorderSide(color: Colors.white, width: 3))),
-                child: _section(introductionList[1]),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: _section(introductionList[2]),
-              ),
-            ),
+            ...FirebaseRepository().introductionList.map(
+                  (e) => Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              right:
+                                  BorderSide(color: Colors.white, width: 3))),
+                      child: _section(e),
+                    ),
+                  ),
+                )
           ],
         ),
       ),
@@ -57,7 +44,7 @@ class IntroductionView extends StatelessWidget {
           AutoSizeText(
             introduction.title,
             maxLines: 1,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+            style: kTitle,
             maxFontSize: 26,
           ),
           const SizedBox(height: 10),
@@ -72,21 +59,5 @@ class IntroductionView extends StatelessWidget {
           ),
           const SizedBox(height: 10),
         ],
-      );
-
-  List<Introduction> getIntroductionList() {
-    final data = FirebaseRepository().data["introduction"] as List;
-
-    final List<Introduction> introductionList =
-        data.map((data) => Introduction.fromJson(data)).toList();
-
-    return introductionList;
-  }
-
-  Widget _divider() => const VerticalDivider(
-        thickness: 3,
-        endIndent: 10,
-        indent: 10,
-        color: Colors.white,
       );
 }

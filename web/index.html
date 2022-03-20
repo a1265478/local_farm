@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -23,16 +24,37 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="local_farm">
+  <meta name="apple-mobile-web-app-title" content="local_farm_backstage">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>local_farm</title>
+  <title>local_farm_backstage</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCevz7D4YZ9ganUGjplhZI1ZboaLtlDmQ",
+      authDomain: "local-farm-ff7b7.firebaseapp.com",
+      databaseURL: "https://local-farm-ff7b7-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "local-farm-ff7b7",
+      storageBucket: "local-farm-ff7b7.appspot.com",
+      messagingSenderId: "591234143954",
+      appId: "1:591234143954:web:e1d54540bbc587bc1fbf0b"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -101,4 +123,5 @@
     }
   </script>
 </body>
+
 </html>

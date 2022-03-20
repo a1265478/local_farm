@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:local_farm/core/app_view.dart';
+import 'package:local_farm/modules/contact_us/contact_us_section.dart';
+import 'package:local_farm/modules/customer/customer_detail.dart';
+import 'package:local_farm/modules/customer/model/customer.dart';
+import 'package:local_farm/modules/service_item/service_item_section.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +39,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "NotoSansTC",
       ),
       home: const AppView(),
+      // home: CustomerDetail(
+      //   customer: Customer.empty,
+      // ),
     );
   }
 }
